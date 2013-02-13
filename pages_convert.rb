@@ -21,7 +21,10 @@ files.each do |path|
   pages.print_printDialog_withProperties(path, false, {})
   sleep 4
   new_path = path.gsub("pages", "pdf")
-  FileUtils.move('/Users/Shared/CUPS-PDF/jberlinsky/job_*.pdf', new_path)
+  files = Dir['/Users/Shared/CUPS-PDF/jberlinsky/job_*.pdf']
+  files.each do |file|
+    FileUtils.move(file, escape(new_path))
+  end
   document.closeSaving_savingIn(3, '')
   puts "Processed #{escape file_name} -> #{escape(new_path)}"
 end
