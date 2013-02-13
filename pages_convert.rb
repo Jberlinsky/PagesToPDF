@@ -8,6 +8,7 @@ OSX.require_framework 'ScriptingBridge'
 pages = SBApplication.applicationWithBundleIdentifier_("com.apple.iWork.Pages")
 
 files = Dir["/Volumes/Share/Client_List/**/*.pages"]
+puts "Converting #{files.count} files..."
 
 files.each do |path|
   file_name = path.split("/").last.split(".").first
@@ -17,4 +18,5 @@ files.each do |path|
   new_path = path.gsub("pages", "pdf")
   `mv /Users/Shared/CUPS-PDF/jberlinsky/job_*.pdf #{new_path}`
   document.closeSaving_savingIn(3, '')
+  puts "Processed #{file_name} -> #{new_path}"
 end
