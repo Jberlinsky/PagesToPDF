@@ -7,7 +7,7 @@ OSX.require_framework 'ScriptingBridge'
 
 pages = SBApplication.applicationWithBundleIdentifier_("com.apple.iWork.Pages")
 
-files = Dir["/Users/jberlinsky/Desktop/*.pages"]
+files = Dir["/Volumes/Share/Client_List/**/*.pages"]
 
 files.each do |path|
   file_name = path.split("/").last.split(".").first
