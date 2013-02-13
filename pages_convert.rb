@@ -19,12 +19,12 @@ files.each do |path|
   file_name = path.split("/").last.split(".").first
   document = pages.open(path)
   pages.print_printDialog_withProperties(path, false, {})
-  sleep 4
-  new_path = path.gsub("pages", "pdf")
-  files = Dir['/Users/Shared/CUPS-PDF/jberlinsky/job_*.pdf']
-  files.each do |file|
-    FileUtils.move(file, escape(new_path))
+  unless ENV['SKIP_MOVE']
+    sleep 4
+    new_path = "#{path[0..-5]}.pdf"
+    files = Dir['/Users/Shared/CUPS-PDF/jberlinsky/*.pdf']
+    FileUtils.move(files, escape(new_path))
+    document.closeSaving_savingIn(3, '')
   end
-  document.closeSaving_savingIn(3, '')
-  puts "Processed #{escape file_name} -> #{escape(new_path)}"
+  puts "Processed #{escape file_name}"
 end
